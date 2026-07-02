@@ -1,9 +1,11 @@
 from fastapi import FastAPI
 
-app = FastAPI(
-    title="CV Maker API",
-    version="1.0.0"
-)
+from app.database.base import Base
+from app.database.database import engine
+
+app = FastAPI()
+
+Base.metadata.create_all(bind=engine)
 
 
 @app.get("/")
