@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import HomePage from "./pages/Home/HomePage";
 import AIResumePage from "./pages/AIResume/AiResumePage";
-import ManualResumePage from "./pages/ManualResume/ManualResumePage";
+import MasterProfilePage from "./pages/MasterProfile/MasterProfilePage";
 import NotFoundPage from "./pages/NotFound/NotFoundPage";
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
 
         <Route path="/ai" element={<AIResumePage />} />
 
-        <Route path="/manual" element={<ManualResumePage />} />
+        <Route path="/profile" element={<MasterProfilePage />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
