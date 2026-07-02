@@ -2,11 +2,19 @@ from fastapi import FastAPI
 
 from app.database.base import Base
 from app.database.database import engine
+
 from app.models import *
 
-app = FastAPI()
+from app.api.profile import router as profile_router
+
+app = FastAPI(
+    title="CV Maker API",
+    version="1.0.0",
+)
 
 Base.metadata.create_all(bind=engine)
+
+app.include_router(profile_router)
 
 
 @app.get("/")
