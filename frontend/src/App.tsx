@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import HomePage from "./pages/Home/HomePage";
-import AIResumePage from "./pages/AIResume/AIResumePage";
+import AIResumePage from "./pages/AIResume/AiResumePage";
 import ManualResumePage from "./pages/ManualResume/ManualResumePage";
 import NotFoundPage from "./pages/NotFound/NotFoundPage";
 
