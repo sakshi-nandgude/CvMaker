@@ -1,0 +1,21 @@
+# Python
+backend/venv/
+__pycache__/
+*.pyc
+
+# Node
+frontend/node_modules/
+
+# Environment
+.env
+
+# Generated Files
+generated_resumes/
+uploads/
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
