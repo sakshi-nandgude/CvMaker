@@ -48,11 +48,13 @@ export interface Certification {
   year: string;
 }
 
-export interface ResumeProfile {
-  personalProfile: PersonalProfile;
-  skills: SkillCategory[];
-  experiences: Experience[];
-  projects: Project[];
-  education: Education[];
-  certifications: Certification[];
+export interface PersonalProfile {
+    fullName: string;
+    title: string;
+    email: string;
+    phone: string;
+    location: string;
+    linkedin: string;
+    portfolio: string;
+    summary: string;
 }
