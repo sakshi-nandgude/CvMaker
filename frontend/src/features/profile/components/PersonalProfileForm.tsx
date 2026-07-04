@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Button from "../../../components/common/Button";
 import Input from "../../../components/common/Input";
 import SectionCard from "../../../components/common/SectionCard";
 import TextArea from "../../../components/common/TextArea";
 
+import { useProfile } from "../hooks/useProfile";
+
 import type { PersonalProfile } from "../../../types/resume";
 
 function PersonalProfileForm() {
+  const { data, isLoading } = useProfile();
+
   const [profile, setProfile] = useState<PersonalProfile>({
     fullName: "",
     title: "",
@@ -19,6 +23,12 @@ function PersonalProfileForm() {
     summary: "",
   });
 
+  useEffect(() => {
+    if (data) {
+      setProfile(data);
+    }
+  }, [data]);
+
   const updateField = (
     field: keyof PersonalProfile,
     value: string
@@ -28,6 +38,10 @@ function PersonalProfileForm() {
       [field]: value,
     }));
   };
+
+  if (isLoading) {
+    return <p>Loading profile...</p>;
+  }
 
   return (
     <SectionCard
