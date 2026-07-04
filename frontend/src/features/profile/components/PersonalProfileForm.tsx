@@ -24,10 +24,19 @@ function PersonalProfileForm() {
   });
 
   useEffect(() => {
-    if (data) {
-      setProfile(data);
-    }
-  }, [data]);
+  if (data) {
+    setProfile({
+      fullName: (data as any).full_name,
+      title: data.title,
+      email: data.email,
+      phone: data.phone,
+      location: data.location,
+      linkedin: data.linkedin,
+      portfolio: data.portfolio,
+      summary: data.summary,
+    });
+  }
+}, [data]);
 
   const updateField = (
     field: keyof PersonalProfile,
