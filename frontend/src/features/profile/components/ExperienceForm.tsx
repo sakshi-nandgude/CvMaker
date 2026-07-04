@@ -11,7 +11,7 @@ function ExperienceForm() {
   const [location, setLocation] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [bullets, setBullets] = useState("");
+  const [bullets, setBullets] = useState<string[]>([""]);
 
   return (
     <SectionCard
@@ -52,11 +52,33 @@ function ExperienceForm() {
           onChange={setEndDate}
         />
 
-        <TextArea
-          label="Responsibilities (one per line)"
-          value={bullets}
-          onChange={setBullets}
-        />
+        <div className="space-y-4">
+
+  <label className="block font-medium">
+    Responsibilities
+  </label>
+
+  {bullets.map((bullet, index) => (
+    <Input
+      key={index}
+      label={`Bullet ${index + 1}`}
+      value={bullet}
+      onChange={(value) => {
+        const updated = [...bullets];
+        updated[index] = value;
+        setBullets(updated);
+      }}
+    />
+  ))}
+
+  <Button
+    text="+ Add Bullet"
+    onClick={() =>
+      setBullets([...bullets, ""])
+    }
+  />
+
+</div>
 
         <Button
           text="Save Experience"
