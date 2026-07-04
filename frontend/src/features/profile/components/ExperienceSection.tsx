@@ -1,7 +1,13 @@
+import { useState } from "react";
+
 import Button from "../../../components/common/Button";
 import SectionCard from "../../../components/common/SectionCard";
 
+import ExperienceForm from "./ExperienceForm";
+
 function ExperienceSection() {
+  const [showForm, setShowForm] = useState(false);
+
   return (
     <SectionCard
       title="Professional Experience"
@@ -21,7 +27,10 @@ function ExperienceSection() {
 
         <Button
           text="+ Add Experience"
+          onClick={() => setShowForm(!showForm)}
         />
+
+        {showForm && <ExperienceForm />}
 
       </div>
     </SectionCard>
