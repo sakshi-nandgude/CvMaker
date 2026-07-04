@@ -6,11 +6,13 @@ import SectionCard from "../../../components/common/SectionCard";
 import TextArea from "../../../components/common/TextArea";
 
 import { useProfile } from "../hooks/useProfile";
+import { useSaveProfile } from "../hooks/useSaveProfile";
 
 import type { PersonalProfile } from "../../../types/resume";
 
 function PersonalProfileForm() {
   const { data, isLoading } = useProfile();
+  const saveMutation = useSaveProfile();
 
   const [profile, setProfile] = useState<PersonalProfile>({
     fullName: "",
@@ -107,8 +109,20 @@ function PersonalProfileForm() {
         />
 
         <Button
-          text="Save Profile"
-        />
+    text={saveMutation.isPending ? "Saving..." : "Save Profile"}
+    onClick={() =>
+        saveMutation.mutate({
+            full_name: profile.fullName,
+            title: profile.title,
+            email: profile.email,
+            phone: profile.phone,
+            location: profile.location,
+            linkedin: profile.linkedin,
+            portfolio: profile.portfolio,
+            summary: profile.summary,
+        } as any)
+    }
+/>
       </div>
     </SectionCard>
   );
