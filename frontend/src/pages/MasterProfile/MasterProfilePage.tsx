@@ -1,15 +1,17 @@
 import MainLayout from "../../layout/MainLayout";
+import PageHeader from "../../components/common/PageHeader";
+
+import PersonalProfileForm from "../../features/profile/components/PersonalProfileForm";
 
 function MasterProfilePage() {
   return (
     <MainLayout>
-      <h1 className="text-4xl font-bold">
-        Master Profile
-      </h1>
+      <PageHeader
+        title="Master Profile"
+        subtitle="Manage your professional information."
+      />
 
-      <p className="mt-2 text-gray-600">
-        Manage your professional information.
-      </p>
+      <PersonalProfileForm />
     </MainLayout>
   );
 }

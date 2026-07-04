@@ -1,13 +1,3 @@
-export interface PersonalProfile {
-  fullName: string;
-  title: string;
-  email: string;
-  phone: string;
-  location: string;
-  linkedin: string;
-  portfolio: string;
-  summary: string;
-}
 
 export interface SkillCategory {
   category: string;
