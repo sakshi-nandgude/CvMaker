@@ -59,8 +59,11 @@ function ExperienceForm() {
   </label>
 
   {bullets.map((bullet, index) => (
+  <div
+    key={index}
+    className="rounded-lg border p-4 space-y-3"
+  >
     <Input
-      key={index}
       label={`Bullet ${index + 1}`}
       value={bullet}
       onChange={(value) => {
@@ -69,7 +72,19 @@ function ExperienceForm() {
         setBullets(updated);
       }}
     />
-  ))}
+
+    {bullets.length > 1 && (
+      <Button
+        text="Remove Bullet"
+        onClick={() => {
+          setBullets(
+            bullets.filter((_, i) => i !== index)
+          );
+        }}
+      />
+    )}
+  </div>
+))}
 
   <Button
     text="+ Add Bullet"
