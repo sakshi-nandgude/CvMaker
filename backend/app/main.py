@@ -8,6 +8,7 @@ from app.api.profile import router as profile_router
 from app.api.experience import router as experience_router
 from app.api.skill import router as skill_router
 from app.api.education import router as education_router
+from app.api.project import router as project_router
 
 app = FastAPI(
     title="CV Maker API",
@@ -28,6 +29,7 @@ app.include_router(profile_router)
 app.include_router(experience_router)
 app.include_router(skill_router)
 app.include_router(education_router)
+app.include_router(project_router)
 
 @app.get("/")
 def root():
