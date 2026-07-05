@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import Button from "../../../components/common/Button";
 import Input from "../../../components/common/Input";
-import TextArea from "../../../components/common/TextArea";
 import SectionCard from "../../../components/common/SectionCard";
 
 function ExperienceForm() {
