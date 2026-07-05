@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 html,
 body,
@@ -10,5 +8,6 @@ body,
 }
 
 body {
-  @apply bg-gray-100 text-gray-900;
+  background-color: #f3f4f6;
+  color: #111827;
 }
