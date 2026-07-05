@@ -1,14 +1,24 @@
+import { NavLink } from "react-router-dom";
+
 type Props = {
   title: string;
+  to: string;
 };
 
-function SidebarItem({ title }: Props) {
+function SidebarItem({ title, to }: Props) {
   return (
-    <button
-      className="w-full rounded-lg px-4 py-3 text-left transition hover:bg-blue-100"
+    <NavLink
+      to={to}
+      className={({ isActive }) =>
+        `block w-full rounded-lg px-4 py-3 text-left transition ${
+          isActive
+            ? "bg-blue-600 text-white"
+            : "hover:bg-blue-100"
+        }`
+      }
     >
       {title}
-    </button>
+    </NavLink>
   );
 }
 
