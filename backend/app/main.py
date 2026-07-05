@@ -6,6 +6,7 @@ from app.database.database import engine
 from app.models import *
 from app.api.profile import router as profile_router
 from app.api.experience import router as experience_router
+from app.api.skill import router as skill_router
 
 app = FastAPI(
     title="CV Maker API",
@@ -24,6 +25,7 @@ Base.metadata.create_all(bind=engine)
 
 app.include_router(profile_router)
 app.include_router(experience_router)
+app.include_router(skill_router)
 
 @app.get("/")
 def root():
