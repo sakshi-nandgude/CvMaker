@@ -1,4 +1,5 @@
 import api from "../../../api/api";
+import type { Experience } from "../../../types/resume";
 
 export interface ExperienceRequest {
   company: string;
