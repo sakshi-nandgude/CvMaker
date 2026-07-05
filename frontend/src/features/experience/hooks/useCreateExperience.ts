@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { experienceApi } from "../api/experienceApi";
+import { experienceApi } from "../../experience/api/experienceApi";
 
 export function useCreateExperience() {
   const queryClient = useQueryClient();

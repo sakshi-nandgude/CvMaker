@@ -1,4 +1,4 @@
-import api from "../../../services/api";
+import api from "../../../api/api";
 import type { PersonalProfile } from "../../../types/resume";
 
 export const profileApi = {

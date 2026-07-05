@@ -1,8 +1,8 @@
-import MainLayout from "../../layout/MainLayout";
+import MainLayout from "../../components/layout/MainLayout";
 import PageHeader from "../../components/common/PageHeader";
 
 import PersonalProfileForm from "../../features/profile/components/PersonalProfileForm";
-import ExperienceSection from "../../features/profile/components/ExperienceSection";
+import ExperienceSection from "../../features/experience/components/ExperienceSection";
 
 function MasterProfilePage() {
   return (
