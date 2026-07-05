@@ -1,5 +1,7 @@
+import ExperienceForm from "../../experience/components/ExperienceForm";
+
 function ExperienceSection() {
-  return <h1 className="text-3xl font-bold">Experience</h1>;
+  return <ExperienceForm />;
 }
 
 export default ExperienceSection;

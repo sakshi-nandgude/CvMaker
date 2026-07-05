@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import MainLayout from "../../layout/MainLayout";
+import MainLayout from "../../components/layout/MainLayout";
 import Card from "../../components/common/Card";
 import Button from "../../components/common/Button";
 

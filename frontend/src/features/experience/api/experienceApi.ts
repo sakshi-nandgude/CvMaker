@@ -10,16 +10,19 @@ export interface ExperienceRequest {
 }
 
 export const experienceApi = {
-  getExperiences: async () => {
-    const response = await api.get("/experiences/");
+  getExperiences: async (): Promise<Experience[]> => {
+    const response = await api.get<Experience[]>(
+      "/experience/"
+    );
+
     return response.data;
   },
 
   createExperience: async (
     experience: ExperienceRequest
-  ) => {
-    const response = await api.post(
-      "/experiences/",
+  ): Promise<Experience> => {
+    const response = await api.post<Experience>(
+      "/experience/",
       experience
     );
 

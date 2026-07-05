@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-import { experienceApi } from "../../experience/api/experienceApi";
+import { experienceApi } from "../api/experienceApi";
 
 export function useCreateExperience() {
   const queryClient = useQueryClient();
@@ -10,7 +9,7 @@ export function useCreateExperience() {
 
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["experiences"],
+        queryKey: ["experience"],
       });
     },
   });

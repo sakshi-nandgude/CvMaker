@@ -5,7 +5,7 @@ export interface SkillCategory {
 }
 
 export interface Experience {
-  id: string;
+  id?: number;
   company: string;
   role: string;
   location: string;
