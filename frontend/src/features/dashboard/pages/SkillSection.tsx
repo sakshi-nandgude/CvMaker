@@ -1,5 +1,7 @@
+import SkillForm from "../../skill/components/SkillForm";
+
 function SkillSection() {
-  return <h1 className="text-3xl font-bold">Skills</h1>;
+  return <SkillForm />;
 }
 
 export default SkillSection;

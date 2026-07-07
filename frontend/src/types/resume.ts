@@ -1,7 +1,8 @@
 
 export interface SkillCategory {
+  id?: number;
   category: string;
-  skills: string[];
+  name: string;
 }
 
 export interface Experience {
