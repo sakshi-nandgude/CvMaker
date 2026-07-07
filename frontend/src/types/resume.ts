@@ -6,11 +6,14 @@ export interface SkillCategory {
 
 export interface Experience {
   id?: number;
+
   company: string;
   role: string;
   location: string;
-  startDate: string;
-  endDate: string;
+
+  start_date: string;
+  end_date: string;
+
   bullets: string[];
 }
 
