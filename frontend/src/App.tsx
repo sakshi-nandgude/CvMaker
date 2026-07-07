@@ -14,6 +14,7 @@ import SettingsSection from "./features/dashboard/pages/SettingsSection";
 
 import AIResumePage from "./pages/AIResume/AiResumePage";
 import NotFoundPage from "./pages/NotFound/NotFoundPage";
+import JobDescriptionSection from "./features/dashboard/pages/JobDescriptionSection";
 
 function App() {
   return (
@@ -40,6 +41,11 @@ function App() {
           <Route path="resume" element={<ResumeSection />} />
 
           <Route path="settings" element={<SettingsSection />} />
+
+          <Route
+  path="job-description"
+  element={<JobDescriptionSection />}
+/>
 
         </Route>
 

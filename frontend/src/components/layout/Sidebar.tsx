@@ -51,6 +51,11 @@ function Sidebar() {
           to="/dashboard/settings"
         />
 
+        <SidebarItem
+          title="📝 Job Description"
+          to="/dashboard/job-description"
+        />
+
       </div>
     </aside>
   );
