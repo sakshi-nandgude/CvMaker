@@ -5,6 +5,7 @@ import ResumeProjects from "./ResumeProjects";
 import ResumeSkills from "./ResumeSkills";
 import ResumeEducation from "./ResumeEducation";
 import ResumeCertifications from "./ResumeCertifications";
+import { useResumeContext } from "../context/ResumeContext";
 
 import { useResumeData } from "../hooks/useResumeData";
 
@@ -17,6 +18,8 @@ function ResumePreview() {
     education,
     certifications,
   } = useResumeData();
+  const { generatedResume } =
+    useResumeContext();
 
   if (
     profile.isLoading ||
@@ -32,6 +35,14 @@ function ResumePreview() {
   if (!profile.data) {
     return <p>No profile found.</p>;
   }
+
+  if (generatedResume) {
+    return (
+        <pre className="bg-white p-8 rounded shadow overflow-auto">
+            {JSON.stringify(generatedResume, null, 2)}
+        </pre>
+    );
+}
 
   return (
     <div className="mx-auto max-w-4xl rounded-lg bg-white p-10 shadow-lg">

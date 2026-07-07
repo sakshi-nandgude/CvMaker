@@ -4,10 +4,13 @@ import Button from "../../../components/common/Button";
 import SectionCard from "../../../components/common/SectionCard";
 import TextArea from "../../../components/common/TextArea";
 import { useGenerateResume } from "../../resume/hooks/useGenerateResume";
+import { useResumeContext } from "../../resume/context/ResumeContext";
 
 function JobDescriptionForm() {
   const [jobDescription, setJobDescription] = useState("");
   const generateResume = useGenerateResume();
+  const { setGeneratedResume } =
+    useResumeContext();
 
   const handleSave = () => {
     generateResume.mutate(
@@ -16,7 +19,7 @@ function JobDescriptionForm() {
   },
   {
     onSuccess: (data) => {
-      console.log(data);
+      setGeneratedResume(data);
     },
   }
 );
