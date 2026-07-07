@@ -3,12 +3,23 @@ import { useState } from "react";
 import Button from "../../../components/common/Button";
 import SectionCard from "../../../components/common/SectionCard";
 import TextArea from "../../../components/common/TextArea";
+import { useGenerateResume } from "../../resume/hooks/useGenerateResume";
 
 function JobDescriptionForm() {
   const [jobDescription, setJobDescription] = useState("");
+  const generateResume = useGenerateResume();
 
   const handleSave = () => {
-    console.log(jobDescription);
+    generateResume.mutate(
+  {
+    job_description: jobDescription,
+  },
+  {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  }
+);
   };
 
   return (
