@@ -37,7 +37,7 @@ export interface Education {
 }
 
 export interface Certification {
-  id: string;
+  id?: number;
   name: string;
   provider: string;
   year: string;
