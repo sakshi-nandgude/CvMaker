@@ -1,5 +1,7 @@
+import ResumePreview from "../../resume/components/ResumePreview";
+
 function ResumeSection() {
-  return <h1 className="text-3xl font-bold">Resume</h1>;
+  return <ResumePreview />;
 }
 
 export default ResumeSection;
