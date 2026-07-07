@@ -1,7 +1,9 @@
 from openai import OpenAI
+from sqlalchemy.orm import Session
 
 from app.config import OPENAI_API_KEY
 from app.ai.prompts import SYSTEM_PROMPT
+from app.ai.resume_builder import build_master_profile
 
 from app.models.profile import PersonalProfile
 from app.models.experience import Experience
@@ -10,39 +12,62 @@ from app.models.skill import Skill
 from app.models.education import Education
 from app.models.certification import Certification
 
-
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 
 def generate_resume(
-    db,
+    db: Session,
     job_description: str,
 ):
+    """
+    Generate a tailored resume using the user's
+    stored master profile and a job description.
+    """
 
     profile = db.query(PersonalProfile).first()
 
-    experiences = db.query(Experience).all()
+    experiences = (
+        db.query(Experience)
+        .order_by(Experience.id.desc())
+        .all()
+    )
 
-    projects = db.query(Project).all()
+    projects = (
+        db.query(Project)
+        .order_by(Project.id.desc())
+        .all()
+    )
 
-    skills = db.query(Skill).all()
+    skills = (
+        db.query(Skill)
+        .order_by(Skill.category, Skill.name)
+        .all()
+    )
 
-    education = db.query(Education).all()
+    education = (
+        db.query(Education)
+        .order_by(Education.end_year.desc())
+        .all()
+    )
 
-    certifications = db.query(Certification).all()
+    certifications = (
+        db.query(Certification)
+        .order_by(Certification.year.desc())
+        .all()
+    )
 
-    master_profile = {
-        "profile": profile.__dict__ if profile else {},
-        "experience": [e.__dict__ for e in experiences],
-        "projects": [p.__dict__ for p in projects],
-        "skills": [s.__dict__ for s in skills],
-        "education": [e.__dict__ for e in education],
-        "certifications": [c.__dict__ for c in certifications],
-    }
+    master_profile = build_master_profile(
+        profile=profile,
+        experiences=experiences,
+        projects=projects,
+        skills=skills,
+        education=education,
+        certifications=certifications,
+    )
 
     response = client.chat.completions.create(
         model="gpt-4.1",
-        temperature=0.3,
+        temperature=0.2,
         messages=[
             {
                 "role": "system",
@@ -51,11 +76,11 @@ def generate_resume(
             {
                 "role": "user",
                 "content": f"""
-Master Profile:
+MASTER PROFILE
 
 {master_profile}
 
-Job Description:
+JOB DESCRIPTION
 
 {job_description}
 """,
