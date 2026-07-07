@@ -1,5 +1,7 @@
+import CertificationForm from "../../certification/components/CertificationForm";
+
 function CertificationSection() {
-  return <h1 className="text-3xl font-bold">Certifications</h1>;
+  return <CertificationForm />;
 }
 
 export default CertificationSection;
