@@ -27,12 +27,12 @@ export interface Project {
 }
 
 export interface Education {
-  id: string;
+  id?: number;
   degree: string;
   university: string;
   location: string;
-  startYear: string;
-  endYear: string;
+  start_year: string;
+  end_year: string;
   grade: string;
 }
 
