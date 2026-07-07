@@ -1,3 +1,11 @@
+import ResumeHeader from "./ResumeHeader";
+import ResumeSummary from "./ResumeSummary";
+import ResumeExperience from "./ResumeExperience";
+import ResumeProjects from "./ResumeProjects";
+import ResumeSkills from "./ResumeSkills";
+import ResumeEducation from "./ResumeEducation";
+import ResumeCertifications from "./ResumeCertifications";
+
 import { useResumeData } from "../hooks/useResumeData";
 
 function ResumePreview() {
@@ -18,80 +26,40 @@ function ResumePreview() {
     education.isLoading ||
     certifications.isLoading
   ) {
-    return <p>Loading...</p>;
+    return <p>Loading Resume...</p>;
+  }
+
+  if (!profile.data) {
+    return <p>No profile found.</p>;
   }
 
   return (
-    <div className="mx-auto max-w-4xl rounded-lg bg-white p-10 shadow">
+    <div className="mx-auto max-w-4xl rounded-lg bg-white p-10 shadow-lg">
+      <ResumeHeader profile={profile.data} />
 
-      <h1 className="text-4xl font-bold">
-        {profile.data?.fullName}
-      </h1>
+      <ResumeSummary
+        summary={profile.data.summary}
+      />
 
-      <p>{profile.data?.title}</p>
+      <ResumeExperience
+        experiences={experiences.data ?? []}
+      />
 
-      <hr className="my-6" />
+      <ResumeProjects
+        projects={projects.data ?? []}
+      />
 
-      <h2 className="mb-3 text-2xl font-bold">
-        Experience
-      </h2>
+      <ResumeSkills
+        skills={skills.data ?? []}
+      />
 
-      {experiences.data?.map((experience) => (
-        <div key={experience.id}>
-          <strong>{experience.role}</strong>
+      <ResumeEducation
+  education={education.data ?? []}
+/>
 
-          <div>{experience.company}</div>
-        </div>
-      ))}
-
-      <hr className="my-6" />
-
-      <h2 className="mb-3 text-2xl font-bold">
-        Projects
-      </h2>
-
-      {projects.data?.map((project) => (
-        <div key={project.id}>
-          {project.name}
-        </div>
-      ))}
-
-      <hr className="my-6" />
-
-      <h2 className="mb-3 text-2xl font-bold">
-        Skills
-      </h2>
-
-      {skills.data?.map((skill) => (
-        <div key={skill.id}>
-          {skill.category}: {skill.name}
-        </div>
-      ))}
-
-      <hr className="my-6" />
-
-      <h2 className="mb-3 text-2xl font-bold">
-        Education
-      </h2>
-
-      {education.data?.map((item) => (
-        <div key={item.id}>
-          {item.degree}
-        </div>
-      ))}
-
-      <hr className="my-6" />
-
-      <h2 className="mb-3 text-2xl font-bold">
-        Certifications
-      </h2>
-
-      {certifications.data?.map((cert) => (
-        <div key={cert.id}>
-          {cert.name}
-        </div>
-      ))}
-
+<ResumeCertifications
+  certifications={certifications.data ?? []}
+/>
     </div>
   );
 }
