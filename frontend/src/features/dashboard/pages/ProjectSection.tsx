@@ -1,5 +1,7 @@
+import ProjectForm from "../../project/components/ProjectForm";
+
 function ProjectSection() {
-  return <h1 className="text-3xl font-bold">Projects</h1>;
+  return <ProjectForm />;
 }
 
 export default ProjectSection;

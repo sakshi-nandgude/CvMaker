@@ -18,10 +18,11 @@ export interface Experience {
 }
 
 export interface Project {
-  id: string;
+  id?: number;
   name: string;
-  technologies: string[];
-  bullets: string[];
+  technologies: string;
+  github_url: string;
+  live_url: string;
 }
 
 export interface Education {
