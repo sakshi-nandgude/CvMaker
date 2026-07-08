@@ -14,5 +14,6 @@ class ProjectCreate(ProjectBase):
 
 class ProjectResponse(ProjectBase):
     id: int
+    bullets: list[str] = []
 
     model_config = ConfigDict(from_attributes=True)
