@@ -20,16 +20,26 @@ function ResumeProjects({ projects }: Props) {
             {project.name}
           </h3>
 
-          <p>{project.technologies}</p>
+          <p className="mb-2 text-sm text-gray-600">
+            {project.technologies}
+          </p>
 
-          <a
-            href={project.github_url}
-            target="_blank"
-            rel="noreferrer"
-            className="text-blue-600"
-          >
-            GitHub
-          </a>
+          <ul className="ml-5 list-disc space-y-1">
+            {project.bullets.map((bullet, index) => (
+              <li key={index}>{bullet}</li>
+            ))}
+          </ul>
+
+          {project.github_url && (
+            <a
+              href={project.github_url}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-2 inline-block text-blue-600"
+            >
+              GitHub
+            </a>
+          )}
         </div>
       ))}
     </section>

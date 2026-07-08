@@ -1,8 +1,12 @@
-
-export interface SkillCategory {
-  id?: number;
-  category: string;
-  name: string;
+export interface PersonalProfile {
+  fullName: string;
+  title: string;
+  email: string;
+  phone: string;
+  location: string;
+  linkedin: string;
+  portfolio: string;
+  summary: string;
 }
 
 export interface Experience {
@@ -20,31 +24,47 @@ export interface Experience {
 
 export interface Project {
   id?: number;
+
   name: string;
   technologies: string;
+
   github_url: string;
   live_url: string;
+
+  bullets: string[];
+}
+
+export interface SkillCategory {
+  id?: number;
+
+  category: string;
+  name: string;
 }
 
 export interface Education {
   id?: number;
+
   degree: string;
   university: string;
   location: string;
+
   start_year: string;
   end_year: string;
+
   grade: string;
 }
 
 export interface Certification {
   id?: number;
+
   name: string;
   provider: string;
   year: string;
 }
 
-export interface PersonalProfile {
-    fullName: string;
+export interface GeneratedResume {
+  profile: {
+    full_name: string;
     title: string;
     email: string;
     phone: string;
@@ -52,4 +72,11 @@ export interface PersonalProfile {
     linkedin: string;
     portfolio: string;
     summary: string;
+  };
+
+  experience: Experience[];
+  projects: Project[];
+  skills: SkillCategory[];
+  education: Education[];
+  certifications: Certification[];
 }

@@ -7,24 +7,21 @@ def assemble_resume(
 ):
     """
     Merge AI tailoring decisions with the
-    user's stored master profile.
+    stored master profile.
     """
 
     resume = deepcopy(master_profile)
 
-    # ------------------------
+    # ---------------------------------
     # Summary
-    # ------------------------
+    # ---------------------------------
 
     if ai_response.get("summary"):
+        resume["profile"]["summary"] = ai_response["summary"]
 
-        resume["profile"]["summary"] = (
-            ai_response["summary"]
-        )
-
-    # ------------------------
-    # Skills
-    # ------------------------
+    # ---------------------------------
+    # Skill Order
+    # ---------------------------------
 
     if ai_response.get("skill_order"):
 
@@ -43,37 +40,16 @@ def assemble_resume(
         for skill in resume["skills"]:
 
             if skill not in ordered:
-
                 ordered.append(skill)
 
         resume["skills"] = ordered
 
-    # ------------------------
-    # Projects
-    # ------------------------
+    # ---------------------------------
+    # Experience Rewrite
+    # ---------------------------------
 
-    if ai_response.get("selected_projects"):
-
-        resume["projects"] = [
-
-            project
-
-            for project in resume["projects"]
-
-            if project["id"]
-
-            in ai_response[
-                "selected_projects"
-            ]
-        ]
-
-    # ------------------------
-    # Experience
-    # ------------------------
-
-    rewritten = {
+    rewritten_experience = {
         item["id"]: item["bullets"]
-
         for item in ai_response.get(
             "experience",
             [],
@@ -82,10 +58,30 @@ def assemble_resume(
 
     for experience in resume["experience"]:
 
-        if experience["id"] in rewritten:
+        if experience["id"] in rewritten_experience:
 
-            experience["bullets"] = rewritten[
+            experience["bullets"] = rewritten_experience[
                 experience["id"]
+            ]
+
+    # ---------------------------------
+    # Project Rewrite
+    # ---------------------------------
+
+    rewritten_projects = {
+        item["id"]: item["bullets"]
+        for item in ai_response.get(
+            "projects",
+            [],
+        )
+    }
+
+    for project in resume["projects"]:
+
+        if project["id"] in rewritten_projects:
+
+            project["bullets"] = rewritten_projects[
+                project["id"]
             ]
 
     return resume

@@ -90,7 +90,7 @@ function ResumePreview() {
 
       <ResumeProjects
         projects={resume.projects}
-      />
+        />
 
       <ResumeSkills
         skills={resume.skills}

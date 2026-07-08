@@ -12,9 +12,8 @@ import CertificationSection from "./features/dashboard/pages/CertificationSectio
 import ResumeSection from "./features/dashboard/pages/ResumeSection";
 import SettingsSection from "./features/dashboard/pages/SettingsSection";
 
-import AIResumePage from "./pages/AIResume/AiResumePage";
+import AIResumePage from "./features/ai/pages/AIResumePage";
 import NotFoundPage from "./pages/NotFound/NotFoundPage";
-import JobDescriptionSection from "./features/dashboard/pages/JobDescriptionSection";
 
 function App() {
   return (
@@ -23,33 +22,23 @@ function App() {
         <Route path="/" element={<HomePage />} />
 
         <Route path="/dashboard" element={<DashboardPage />}>
+  <Route index element={<ProfileSection />} />
 
-          <Route index element={<ProfileSection />} />
+  <Route path="profile" element={<ProfileSection />} />
+  <Route path="experience" element={<ExperienceSection />} />
+  <Route path="projects" element={<ProjectSection />} />
+  <Route path="skills" element={<SkillSection />} />
+  <Route path="education" element={<EducationSection />} />
+  <Route path="certifications" element={<CertificationSection />} />
+  <Route path="resume" element={<ResumeSection />} />
+  <Route path="settings" element={<SettingsSection />} />
 
-          <Route path="profile" element={<ProfileSection />} />
+  <Route
+    path="ai-resume"
+    element={<AIResumePage />}
+  />
+</Route>
 
-          <Route path="experience" element={<ExperienceSection />} />
-
-          <Route path="projects" element={<ProjectSection />} />
-
-          <Route path="skills" element={<SkillSection />} />
-
-          <Route path="education" element={<EducationSection />} />
-
-          <Route path="certifications" element={<CertificationSection />} />
-
-          <Route path="resume" element={<ResumeSection />} />
-
-          <Route path="settings" element={<SettingsSection />} />
-
-          <Route
-  path="job-description"
-  element={<JobDescriptionSection />}
-/>
-
-        </Route>
-
-        <Route path="/ai" element={<AIResumePage />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

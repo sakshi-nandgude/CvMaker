@@ -192,35 +192,63 @@ Avoid filler words.
 
 Every bullet should sound like it belongs on a top-tier professional resume.
 
-====================================================
-OUTPUT
-====================================================
+========================
+OUTPUT FORMAT
+========================
 
-Return ONLY JSON.
+Return ONLY valid JSON.
 
-No markdown.
+No Markdown.
 
 No explanation.
 
-Use exactly this schema:
+No commentary.
+
+The JSON MUST follow this structure:
 
 {
-  "summary": "...",
+  "summary": "string",
+
   "experience": [
     {
-      "id": 1,
+      "id": integer,
       "bullets": [
-        "...",
-        "...",
-        "..."
+        "bullet",
+        "bullet",
+        "bullet"
       ]
     }
   ],
-  "selected_projects": [1,2],
+
+  "projects": [
+    {
+      "id": integer,
+      "bullets": [
+        "bullet",
+        "bullet",
+        "bullet"
+      ]
+    }
+  ],
+
   "skill_order": [
     "Python",
     "SQL",
     "Power BI"
   ]
 }
+
+Rules:
+
+- Every experience id MUST exist in the supplied master profile.
+- Every project id MUST exist in the supplied master profile.
+- Rewrite project bullets exactly like experience bullets.
+- Never invent projects.
+- Never invent technologies.
+- Never invent achievements.
+- Never change company names.
+- Never change dates.
+- Never remove experience.
+- Never return markdown.
+- Return ONLY valid JSON.
 """
