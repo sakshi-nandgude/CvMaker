@@ -71,7 +71,7 @@ def seed_education(db: Session):
     db.commit()
 
     print(f"✓ {len(education_records)} Education Records Inserted")
-    
+
 def seed_projects(db: Session):
     """
     Insert all projects and project bullets.
@@ -546,7 +546,7 @@ def main():
         seed_experiences(db)
         seed_projects(db)
         seed_education(db)
-        seed_certifications(db)
+        #seed_certifications(db)
 
         print("Seeder Connected Successfully!")
 
