@@ -17,7 +17,61 @@ from app.models.experience import Experience
 from app.models.experience_bullet import ExperienceBullet
 from app.models.project import Project
 from app.models.project_bullet import ProjectBullet
+from app.models.education import Education
+from app.models.certification import Certification
 
+def seed_education(db: Session):
+    """
+    Insert all education records.
+    """
+
+    db.query(Education).delete()
+
+    education_records = [
+
+        Education(
+            degree="MSc Business Analytics",
+            university="University of Limerick",
+            location="Limerick, Ireland",
+            start_year="2025",
+            end_year="2026",
+            grade="Expected First Class Honours (1:1)"
+        ),
+
+        Education(
+            degree="Bachelor of Computer Applications (Honours)",
+            university="Savitribai Phule Pune University",
+            location="Pune, Maharashtra, India",
+            start_year="2022",
+            end_year="2025",
+            grade="CGPA: 9.32 / 10"
+        ),
+
+        Education(
+            degree="Higher Secondary Certificate (HSC)",
+            university="Jaihind Junior College",
+            location="Pune, Maharashtra, India",
+            start_year="2020",
+            end_year="2022",
+            grade="73%"
+        ),
+
+        Education(
+            degree="Secondary School Certificate (SSC)",
+            university="A.W. Sindhu Vidya Bhavan",
+            location="Pune, Maharashtra, India",
+            start_year="2019",
+            end_year="2020",
+            grade="92%"
+        )
+
+    ]
+
+    db.add_all(education_records)
+    db.commit()
+
+    print(f"✓ {len(education_records)} Education Records Inserted")
+    
 def seed_projects(db: Session):
     """
     Insert all projects and project bullets.
@@ -491,8 +545,8 @@ def main():
         seed_skills(db)
         seed_experiences(db)
         seed_projects(db)
-        # Then Education
-        # Then Certifications
+        seed_education(db)
+        seed_certifications(db)
 
         print("Seeder Connected Successfully!")
 
