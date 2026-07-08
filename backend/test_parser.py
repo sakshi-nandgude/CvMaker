@@ -1,13 +1,13 @@
-from app.importer.cv_parser import parse_cv
+from pprint import pprint
 
-data = parse_cv("A_MASTER_CV.docx")
+from app.importer.cv_importer import build_master_profile
 
-print(data.keys())
+profile = build_master_profile(
+    "A_MASTER_CV.docx"
+)
 
-print("\n====================\n")
+pprint(profile["profile"])
 
-print(data["PROFILE SUMMARY"])
+print()
 
-print("\n====================\n")
-
-print(data["PROFESSIONAL EXPERIENCE"][:1000])
+print(profile["skills"][:10])
