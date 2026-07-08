@@ -13,6 +13,120 @@ from app.database.database import SessionLocal
 
 from app.models.profile import PersonalProfile
 from app.models.skill import Skill
+from app.models.experience import Experience
+from app.models.experience_bullet import ExperienceBullet
+
+def seed_experiences(db: Session):
+    """
+    Insert all work experiences and bullets.
+    """
+
+    db.query(ExperienceBullet).delete()
+    db.query(Experience).delete()
+
+    experiences = [
+        {
+            "company": "Stats Perform",
+            "role": "AFL Data Analyst",
+            "location": "Limerick, Ireland",
+            "start_date": "Mar 2026",
+            "end_date": "Present",
+            "bullets": [
+                "Perform real-time data quality assurance for structured AFL sports data feeds in a live analytics production environment.",
+                "Validate player tracking metrics, event data, and statistical outputs against defined business rules, ensuring accuracy for downstream BI and analytics products consumed across the sports intelligence industry.",
+                "Identify and communicate data discrepancies in real time, applying rigorous QA processes that maintain reliability of structured feeds at volume.",
+                "Support operational processes enabling accurate, consistent data output across a cross-functional team of analysts and data engineers.",
+                "Maintain initiative trackers and dashboard statuses to support stakeholder visibility of data quality across live game events."
+            ]
+        },
+        {
+            "company": "University of Limerick",
+            "role": "Project Lead — Big Data, Digital Marketing & Digital Futures Lab",
+            "location": "Ireland",
+            "start_date": "Jun 2025",
+            "end_date": "Present",
+            "bullets": [
+                "Coordinated operations for a cross-disciplinary team spanning Business Analytics, Finance, and AI disciplines, preparing documents, assigning actions, and tracking follow-ups from every working session using Jira and Kanban boards.",
+                "Collected and organised requirements from multiple stakeholders and consolidated inputs into structured frameworks including stakeholder maps, systems maps, and concern statements using Microsoft Teams, Miro, SharePoint, and PowerPoint.",
+                "Synthesised individual and collective findings into evidence-backed reports and presentation materials for senior academic stakeholders, demonstrating clear written and verbal communication."
+            ]
+        },
+        {
+            "company": "Innomatics Research Labs",
+            "role": "Agentic AI Intern",
+            "location": "India · Remote",
+            "start_date": "Feb 2026",
+            "end_date": "Apr 2026",
+            "bullets": [
+                "Designed, built, and validated AI data pipelines using Python, FastAPI, AWS, LangChain, and LangGraph.",
+                "Designed and validated structured JSON data models for multi-step LLM agent workflows, enforcing schema consistency and detecting output anomalies across pipeline stages.",
+                "Built Python/FastAPI data transformation microservices applying cleaning, normalisation, validation, and business rule enforcement using production-ready data service patterns.",
+                "Analysed LLM output patterns across agent workflows to identify quality issues, performance bottlenecks, and failure modes, producing structured findings for the engineering team.",
+                "Deployed and tested services on AWS infrastructure (S3, EC2), supporting cloud-native AI pipeline delivery."
+            ]
+        },
+        {
+            "company": "Indira University",
+            "role": "Junior Data Analyst",
+            "location": "Pune District, Maharashtra, India",
+            "start_date": "Aug 2024",
+            "end_date": "Jul 2025",
+            "bullets": [
+                "Managed end-to-end placement data reporting for 100+ students and 15+ corporate recruiting partners.",
+                "Gathered, cleaned, tracked, and reported placement data, producing performance trend reports and insights that directly informed faculty recruitment strategy.",
+                "Coordinated placement calendars, interview scheduling, and logistics across students and recruiters, managing data flows for 100+ concurrent records.",
+                "Built and maintained structured data dashboards and reporting templates using Microsoft Excel."
+            ]
+        },
+        {
+            "company": "Indira University",
+            "role": "Placement Coordinator | Data & Reporting Analyst",
+            "location": "Maharashtra, India",
+            "start_date": "May 2024",
+            "end_date": "Jul 2024",
+            "bullets": [
+                "Coordinated placement drives for 100+ students and 15+ corporate recruiting partners, managing calendars, scheduling interviews, coordinating logistics, and processing travel arrangements as required.",
+                "Prepared meeting agendas, briefing materials, and written updates for faculty leadership; tracked actions, decisions, and follow-ups from placement committee meetings with high accuracy.",
+                "Collected and organised requirements from recruiters, faculty, and students across every placement cycle, maintaining structured trackers and automated status dashboards, and assisted in preparing meeting reports.",
+                "Demonstrated strong organisational skills and high attention to detail across end-to-end placement logistics, communicating clearly with senior faculty and corporate partners to ensure every commitment was met on time."
+            ]
+        }
+    ]
+
+    total_exp = 0
+    total_bullets = 0
+
+    for item in experiences:
+
+        exp = Experience(
+            company=item["company"],
+            role=item["role"],
+            location=item["location"],
+            start_date=item["start_date"],
+            end_date=item["end_date"],
+        )
+
+        db.add(exp)
+        db.flush()
+
+        for index, bullet in enumerate(item["bullets"], start=1):
+
+            db.add(
+                ExperienceBullet(
+                    experience_id=exp.id,
+                    bullet=bullet,
+                    display_order=index,
+                )
+            )
+
+            total_bullets += 1
+
+        total_exp += 1
+
+    db.commit()
+
+    print(f"✓ {total_exp} Experiences Inserted")
+    print(f"✓ {total_bullets} Experience Bullets Inserted")
 
 def seed_skills(db: Session):
     """
@@ -161,7 +275,7 @@ def main():
 
         seed_profile(db)
         seed_skills(db)
-        # Then Experience
+        seed_experiences(db)
         # Then Projects
         # Then Education
         # Then Certifications
