@@ -1,0 +1,174 @@
+{
+  "profile": {
+    "full_name": "Sakshi Vijay Nandgude",
+    "title": "Data Analyst · Analytics Engineer · Software Engineer · Data Engineer · Data Scientist",
+    "email": "sakshinandgude6@gmail.com",
+    "phone": "+353858083112",
+    "location": "Limerick, Ireland",
+    "linkedin": "https://linkedin.com/in/sakshi-nandgude",
+    "portfolio": "https://my-portfolio",
+    "github": "https://github.com/sakshi-nandgude",
+    "summary": "Data professional and software engineer based in Limerick, Ireland, currently completing an MSc in Business Analytics at the University of Limerick. Strong background in software engineering, backend development, data analytics, machine learning, cloud technologies, and business intelligence. Experienced building production-grade APIs, analytics platforms, AI pipelines, and performing real-time data quality assurance. Passionate about transforming business problems into scalable data-driven solutions."
+  },
+
+    "skills": [
+    {
+      "category": "Programming",
+      "items": [
+        "Python",
+        "Java",
+        "JavaScript",
+        "TypeScript",
+        "SQL",
+        "Bash",
+        "HTML5",
+        "CSS3"
+      ]
+    },
+    {
+      "category": "Backend",
+      "items": [
+        "FastAPI",
+        "Spring Boot",
+        "Spring Data JPA",
+        "Node.js",
+        "Express.js",
+        "REST APIs",
+        "SQLAlchemy",
+        "JWT Authentication",
+        "RBAC",
+        "OpenAPI",
+        "Swagger",
+        "JSON Schema"
+      ]
+    },
+    {
+      "category": "Frontend",
+      "items": [
+        "React.js",
+        "TypeScript",
+        "Vite",
+        "Angular",
+        "Responsive Web Design"
+      ]
+    },
+    {
+      "category": "Databases",
+      "items": [
+        "PostgreSQL",
+        "MySQL",
+        "MongoDB",
+        "SQLite",
+        "Schema Design",
+        "Query Optimisation",
+        "CTEs",
+        "Window Functions",
+        "Database Normalisation"
+      ]
+    },
+    {
+      "category": "Data Analytics & BI",
+      "items": [
+        "Power BI",
+        "DAX",
+        "Power Query",
+        "Tableau",
+        "Excel",
+        "Pandas",
+        "NumPy",
+        "Matplotlib",
+        "Seaborn",
+        "Statistical Analysis",
+        "EDA",
+        "Data Modelling"
+      ]
+    },
+    {
+      "category": "Machine Learning & Big Data",
+      "items": [
+        "Scikit-learn",
+        "Apache Spark",
+        "PySpark",
+        "Spark SQL",
+        "MLlib",
+        "Logistic Regression",
+        "Random Forest",
+        "Gradient Boosting",
+        "Decision Trees",
+        "K-Means",
+        "ETL Pipelines"
+      ]
+    },
+    {
+      "category": "AI & LLMs",
+      "items": [
+        "LangChain",
+        "LangGraph",
+        "Agentic AI",
+        "Prompt Engineering",
+        "LLM Integration",
+        "Schema Validation"
+      ]
+    },
+    {
+      "category": "Cloud & DevOps",
+      "items": [
+        "AWS",
+        "EC2",
+        "S3",
+        "RDS",
+        "Lambda",
+        "Microsoft Azure",
+        "Docker",
+        "Git",
+        "GitHub",
+        "GitHub Actions",
+        "CI/CD",
+        "Render",
+        "Vercel"
+      ]
+    },
+    {
+      "category": "Testing",
+      "items": [
+        "Postman",
+        "Jest",
+        "Supertest",
+        "pytest",
+        "JUnit",
+        "Mockito",
+        "API Testing",
+        "Integration Testing"
+      ]
+    },
+    {
+      "category": "Software Engineering",
+      "items": [
+        "OOP",
+        "SOLID Principles",
+        "Design Patterns",
+        "Data Structures",
+        "Algorithms",
+        "MVC",
+        "Layered Architecture",
+        "Clean Code",
+        "SDLC"
+      ]
+    },
+    {
+      "category": "Tools & Collaboration",
+      "items": [
+        "Jira",
+        "Miro",
+        "Microsoft Teams",
+        "Jupyter Notebook",
+        "Databricks",
+        "GitHub Projects",
+        "Agile",
+        "Scrum",
+        "Microsoft Visio"
+      ]
+    }
+  ]
+
+}
