@@ -67,9 +67,133 @@ def seed_projects(db: Session):
                 "Evaluated model performance.",
                 "Produced business insights."
             ]
-        }
+        },
 
-        # Add remaining projects exactly the same way
+        {
+    "name": "Automated Backup Script",
+
+    "technologies": "Bash, Linux Shell, Cron Jobs, File System, Git",
+
+    "github_url": "",
+    "live_url": "",
+
+    "bullets": [
+        "Developed an automated shell script to back up files and directories securely.",
+        "Implemented timestamp-based backup naming for version management.",
+        "Automated backup execution using Linux cron scheduling.",
+        "Performed directory validation and file existence checks before backup execution.",
+        "Improved system reliability by reducing manual backup operations.",
+        "Applied Linux shell scripting concepts including loops, variables, conditions, and functions.",
+        "Added logging and error handling for improved maintainability.",
+        "Optimized backup execution for minimal system resource usage.",
+        "Demonstrated Linux system administration and scripting automation skills."
+    ]
+},
+
+{
+    "name": "Modern E-Commerce Platform",
+
+    "technologies": "Node.js, Express.js, MySQL, JWT, REST APIs, Postman, Git",
+
+    "github_url": "",
+    "live_url": "",
+
+    "bullets": [
+        "Developed a secure RESTful e-commerce backend using Node.js and Express.js.",
+        "Designed a normalized MySQL database schema for users, products, orders, and shopping carts.",
+        "Implemented JWT-based authentication and role-based authorization for secure access control.",
+        "Built CRUD APIs for product management, order processing, and user operations.",
+        "Applied middleware for request validation, authentication, and centralized error handling.",
+        "Tested APIs using Postman and followed REST API best practices.",
+        "Structured the application using modular MVC architecture.",
+        "Managed source code using Git with version control best practices.",
+        "Improved backend scalability through reusable services and modular routing."
+    ]
+},
+
+{
+    "name": "Big Data Loan Default Prediction",
+
+    "technologies": "Apache Spark, PySpark, Spark MLlib, Databricks, Python",
+
+    "github_url": "",
+    "live_url": "",
+
+    "bullets": [
+        "Built a large-scale loan default prediction system using Apache Spark and PySpark.",
+        "Processed over one million LendingClub loan records using distributed data processing.",
+        "Performed feature engineering, missing value treatment, and class imbalance handling.",
+        "Developed machine learning models including Logistic Regression, Random Forest, Decision Tree, Gradient Boosted Trees (GBT), and Linear SVC.",
+        "Optimized Spark pipelines using caching, repartitioning, and distributed transformations.",
+        "Evaluated models using Accuracy, Precision, Recall, F1-score, ROC-AUC, and PR-AUC.",
+        "Conducted exploratory data analysis to identify important financial risk factors.",
+        "Implemented scalable ML workflows using Spark ML pipelines.",
+        "Improved predictive performance through hyperparameter tuning and model evaluation."
+    ]
+},
+
+{
+    "name": "Hotel Booking Analysis",
+
+    "technologies": "Python, Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn, Jupyter Notebook",
+
+    "github_url": "",
+    "live_url": "",
+
+    "bullets": [
+        "Performed end-to-end exploratory data analysis on hotel booking datasets.",
+        "Cleaned missing values, handled duplicates, and transformed data for analysis.",
+        "Analyzed booking cancellations, seasonal demand, customer segments, and hotel performance.",
+        "Created insightful visualizations using Matplotlib and Seaborn.",
+        "Identified booking trends and business patterns through statistical analysis.",
+        "Applied feature engineering techniques for predictive modeling.",
+        "Used Python libraries to generate actionable business insights.",
+        "Documented findings using Jupyter Notebook for reproducibility.",
+        "Demonstrated practical data analytics and visualization skills."
+    ]
+},
+
+{
+    "name": "URL Shortener Application",
+
+    "technologies": "React, Node.js, Express.js, MongoDB, JWT, Vercel, Render, Git",
+
+    "github_url": "",
+    "live_url": "",
+
+    "bullets": [
+        "Developed a full-stack URL shortening application with secure user authentication.",
+        "Built RESTful APIs using Node.js and Express.js for URL generation and management.",
+        "Integrated MongoDB for persistent storage of shortened URLs and user information.",
+        "Implemented JWT authentication and protected routes for secure access.",
+        "Developed a responsive React frontend with an intuitive user interface.",
+        "Generated unique short URLs and implemented redirection functionality.",
+        "Deployed the backend on Render and frontend on Vercel.",
+        "Used Git for version control and followed modular application architecture.",
+        "Improved user experience through efficient API integration and responsive design."
+    ]
+},
+
+{
+    "name": "Image Processing Application",
+
+    "technologies": "Node.js, Express.js, MongoDB, AWS S3, Multer, Sharp, Jest, Supertest, Git",
+
+    "github_url": "",
+    "live_url": "",
+
+    "bullets": [
+        "Developed a backend image processing service supporting image upload, transformation, and storage.",
+        "Implemented image resizing, cropping, compression, and format conversion using Sharp.",
+        "Integrated AWS S3 for scalable cloud-based image storage.",
+        "Built secure REST APIs with JWT authentication and protected routes.",
+        "Managed multipart file uploads using Multer middleware.",
+        "Developed automated API tests using Jest and Supertest.",
+        "Applied modular backend architecture with reusable services and middleware.",
+        "Implemented robust error handling and input validation.",
+        "Optimized image processing workflows for improved performance and scalability."
+    ]
+}
     ]
 
     total_projects = 0
