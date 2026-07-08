@@ -15,6 +15,96 @@ from app.models.profile import PersonalProfile
 from app.models.skill import Skill
 from app.models.experience import Experience
 from app.models.experience_bullet import ExperienceBullet
+from app.models.project import Project
+from app.models.project_bullet import ProjectBullet
+
+def seed_projects(db: Session):
+    """
+    Insert all projects and project bullets.
+    """
+
+    db.query(ProjectBullet).delete()
+    db.query(Project).delete()
+
+    projects = [
+        {
+            "name": "AFL Performance Analytics Platform",
+            "technologies": "Python, FastAPI, PostgreSQL, React, TypeScript, Docker",
+
+            "github_url": "https://github.com/sakshi-nandgude/afl-analytics",
+
+            "live_url": "",
+
+            "bullets": [
+                "Developed a full-stack AFL analytics platform using FastAPI, React, PostgreSQL and Docker.",
+                "Designed a layered backend architecture with routers, services and repositories.",
+                "Built REST APIs for players, teams, matches and performance analytics.",
+                "Implemented PostgreSQL using SQLAlchemy ORM.",
+                "Created responsive React dashboards using TypeScript and Vite.",
+                "Generated interactive Swagger/OpenAPI documentation.",
+                "Designed reusable backend modules following clean architecture.",
+                "Containerised the application using Docker.",
+                "Applied Git version control throughout development."
+            ]
+        },
+
+        {
+            "name": "Country Economic Stress Analysis",
+
+            "technologies": "Python, Pandas, Scikit-learn, Power BI",
+
+            "github_url": "https://github.com/sakshi-nandgude/country-economic-stress-analysis",
+
+            "live_url": "",
+
+            "bullets": [
+                "Analysed economic indicators across multiple countries.",
+                "Performed extensive data cleaning and preprocessing.",
+                "Built predictive machine learning models.",
+                "Created Power BI dashboards.",
+                "Performed exploratory data analysis.",
+                "Visualised economic trends.",
+                "Evaluated model performance.",
+                "Produced business insights."
+            ]
+        }
+
+        # Add remaining projects exactly the same way
+    ]
+
+    total_projects = 0
+    total_bullets = 0
+
+    for item in projects:
+
+        project = Project(
+            name=item["name"],
+            technologies=item["technologies"],
+            github_url=item["github_url"],
+            live_url=item["live_url"],
+        )
+
+        db.add(project)
+        db.flush()
+
+        for order, bullet in enumerate(item["bullets"], start=1):
+
+            db.add(
+                ProjectBullet(
+                    project_id=project.id,
+                    bullet=bullet,
+                    display_order=order,
+                )
+            )
+
+            total_bullets += 1
+
+        total_projects += 1
+
+    db.commit()
+
+    print(f"✓ {total_projects} Projects Inserted")
+    print(f"✓ {total_bullets} Project Bullets Inserted")
 
 def seed_experiences(db: Session):
     """
@@ -276,7 +366,7 @@ def main():
         seed_profile(db)
         seed_skills(db)
         seed_experiences(db)
-        # Then Projects
+        seed_projects(db)
         # Then Education
         # Then Certifications
 
