@@ -27,16 +27,7 @@ function PersonalProfileForm() {
 
   useEffect(() => {
   if (data) {
-    setProfile({
-      fullName: (data as any).full_name,
-      title: data.title,
-      email: data.email,
-      phone: data.phone,
-      location: data.location,
-      linkedin: data.linkedin,
-      portfolio: data.portfolio,
-      summary: data.summary,
-    });
+    setProfile(data);
   }
 }, [data]);
 
