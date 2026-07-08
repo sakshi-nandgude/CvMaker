@@ -169,6 +169,68 @@
         "Microsoft Visio"
       ]
     }
-  ]
+  ],
+"experience": [
+  {
+    "company": "Stats Perform",
+    "role": "AFL Data Analyst",
+    "location": "Limerick, Ireland",
+    "employment_type": "Part-time",
+    "start_date": "Mar 2026",
+    "end_date": "Present",
+
+    "summary": "",
+
+    "bullets": [],
+
+    "skills": []
+  },
+
+  {
+    "company": "Innomatics Research Labs",
+    "role": "Junior Data Analyst",
+    "location": "Remote",
+    "employment_type": "Internship",
+    "start_date": "Aug 2024",
+    "end_date": "Jul 2025",
+
+    "summary": "",
+
+    "bullets": [],
+
+    "skills": []
+  },
+
+  {
+    "company": "University of Limerick",
+    "role": "Agentic AI Intern",
+    "location": "Limerick, Ireland",
+    "employment_type": "Internship",
+    "start_date": "Feb 2026",
+    "end_date": "Apr 2026",
+
+    "summary": "",
+
+    "bullets": [],
+
+    "skills": []
+  },
+
+  {
+    "company": "Marketing & Digital Futures Lab",
+    "role": "Project Lead - Big Data",
+    "location": "University of Limerick",
+    "employment_type": "Academic Project",
+    "start_date": "Jun 2025",
+    "end_date": "Present",
+
+    "summary": "",
+
+    "bullets": [],
+
+    "skills": []
+  }
+]
+
 
 }
