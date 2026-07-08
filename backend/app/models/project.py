@@ -2,6 +2,7 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database.base import Base
+from sqlalchemy.orm import relationship
 
 
 class Project(Base):
@@ -16,3 +17,10 @@ class Project(Base):
     github_url: Mapped[str] = mapped_column(String(255))
 
     live_url: Mapped[str] = mapped_column(String(255))
+
+    bullets = relationship(
+    "ProjectBullet",
+    back_populates="project",
+    cascade="all, delete-orphan",
+    order_by="ProjectBullet.display_order",
+)

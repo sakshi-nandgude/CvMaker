@@ -5,3 +5,4 @@ from app.models.project import Project
 from app.models.skill import Skill
 from app.models.education import Education
 from app.models.certification import Certification
+from app.models.project_bullet import ProjectBullet
