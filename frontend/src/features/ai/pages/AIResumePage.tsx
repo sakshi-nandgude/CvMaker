@@ -20,8 +20,9 @@ function AIResumePage() {
       },
       {
         onSuccess: (data) => {
-          setGeneratedResume(data);
-        },
+  console.log("AI Response:", data);
+  setGeneratedResume(data);
+},
 
         onError: (error) => {
           console.error(error);
