@@ -12,6 +12,114 @@ from sqlalchemy.orm import Session
 from app.database.database import SessionLocal
 
 from app.models.profile import PersonalProfile
+from app.models.skill import Skill
+
+def seed_skills(db: Session):
+    """
+    Insert all master skills.
+    """
+
+    db.query(Skill).delete()
+
+    skills = {
+
+        "Programming": [
+            "Python",
+            "Java",
+            "JavaScript",
+            "TypeScript",
+            "SQL",
+            "HTML",
+            "CSS",
+            "R",
+            "C"
+        ],
+
+        "Backend": [
+            "FastAPI",
+            "Spring Boot",
+            "Node.js",
+            "Express.js",
+            "REST API",
+            "SQLAlchemy",
+            "JWT Authentication"
+        ],
+
+        "Frontend": [
+            "React",
+            "Vite",
+            "Tailwind CSS"
+        ],
+
+        "Databases": [
+            "PostgreSQL",
+            "MySQL",
+            "SQLite",
+            "MongoDB"
+        ],
+
+        "Data Analytics": [
+            "Power BI",
+            "Excel",
+            "Pandas",
+            "NumPy",
+            "Scikit-learn",
+            "Matplotlib",
+            "Tableau"
+        ],
+
+        "Big Data": [
+            "Apache Spark",
+            "PySpark",
+            "Databricks"
+        ],
+
+        "AI": [
+            "OpenAI",
+            "LangChain",
+            "LangGraph",
+            "Prompt Engineering",
+            "Agentic AI"
+        ],
+
+        "Cloud": [
+            "AWS",
+            "EC2",
+            "S3"
+        ],
+
+        "DevOps": [
+            "Docker",
+            "Git",
+            "GitHub"
+        ],
+
+        "Tools": [
+            "Postman",
+            "Jira",
+            "Miro",
+            "Microsoft Teams"
+        ]
+    }
+
+    total = 0
+
+    for category, items in skills.items():
+
+        for name in items:
+
+            db.add(
+                Skill(
+                    category=category,
+                    name=name,
+                )
+            )
+
+            total += 1
+
+    db.commit()
+
+    print(f"✓ {total} Skills Inserted")
 
 def seed_profile(db: Session):
     """
@@ -52,7 +160,7 @@ def main():
         print("===================================")
 
         seed_profile(db)
-        # Then Skills
+        seed_skills(db)
         # Then Experience
         # Then Projects
         # Then Education
