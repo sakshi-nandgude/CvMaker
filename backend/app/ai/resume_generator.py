@@ -14,16 +14,11 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 
 def load_resume_style() -> str:
     """
-    Loads the professional resume style guide.
-
-    This is NOT copied into the output.
-
-    It is only used as a writing reference.
+    Load the professional resume writing style guide.
     """
 
     style_file = (
-        Path(__file__)
-        .parent.parent.parent
+        Path(__file__).parent.parent.parent
         / "resume_style.md"
     )
 
@@ -35,6 +30,54 @@ def load_resume_style() -> str:
     return ""
 
 
+def build_user_prompt(
+    master_profile: dict,
+    job_description: str,
+    resume_style: str,
+) -> str:
+    """
+    Build a structured prompt for GPT.
+    """
+
+    return f"""
+==============================
+CANDIDATE MASTER PROFILE
+==============================
+
+{json.dumps(master_profile, indent=2)}
+
+==============================
+TARGET JOB DESCRIPTION
+==============================
+
+{job_description}
+
+==============================
+PROFESSIONAL WRITING STYLE
+==============================
+
+{resume_style}
+
+==============================
+YOUR TASK
+==============================
+
+Use ONLY the supplied Master Profile.
+
+Never invent facts.
+
+Never invent metrics.
+
+Never invent employers.
+
+Never invent achievements.
+
+Rewrite existing information only.
+
+Return ONLY valid JSON.
+"""
+
+
 def generate_resume(
     db: Session,
     job_description: str,
@@ -43,15 +86,15 @@ def generate_resume(
 
     resume_style = load_resume_style()
 
-    user_prompt = {
-        "master_profile": master_profile,
-        "job_description": job_description,
-        "resume_style_reference": resume_style,
-    }
+    prompt = build_user_prompt(
+        master_profile,
+        job_description,
+        resume_style,
+    )
 
     response = client.chat.completions.create(
         model="gpt-4.1",
-        temperature=0.15,
+        temperature=0.1,
         response_format={
             "type": "json_object",
         },
@@ -62,10 +105,7 @@ def generate_resume(
             },
             {
                 "role": "user",
-                "content": json.dumps(
-                    user_prompt,
-                    indent=2,
-                ),
+                "content": prompt,
             },
         ],
     )
