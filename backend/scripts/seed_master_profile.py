@@ -20,6 +20,83 @@ from app.models.project_bullet import ProjectBullet
 from app.models.education import Education
 from app.models.certification import Certification
 
+from app.models.certification import Certification
+
+
+def seed_certifications(db: Session):
+    """
+    Insert all certifications.
+    """
+
+    db.query(Certification).delete()
+
+    certifications = [
+
+        # ---------------- Microsoft Business Analysis ----------------
+
+        Certification(name="Microsoft Business Analyst Professional Certificate", provider="Microsoft", year="2025"),
+        Certification(name="Power Platform in Business Analysis", provider="Microsoft", year="2025"),
+        Certification(name="Requirements Gathering in Business Analysis", provider="Microsoft", year="2025"),
+        Certification(name="Data & Business Process Modelling with Microsoft Visio", provider="Microsoft", year="2025"),
+        Certification(name="Business Analysis Fundamentals", provider="Microsoft", year="2025"),
+        Certification(name="Data for Business Analysts Using Microsoft Excel", provider="Microsoft", year="2025"),
+
+        # ---------------- Power BI ----------------
+
+        Certification(name="Microsoft Power BI Data Analyst", provider="Microsoft", year="2026"),
+        Certification(name="Deploy and Maintain Power BI Assets and Capstone Project", provider="Microsoft", year="2026"),
+        Certification(name="Creative Designing in Power BI", provider="Microsoft", year="2026"),
+        Certification(name="Data Analysis and Visualization with Power BI", provider="Microsoft", year="2026"),
+        Certification(name="Data Modeling in Power BI", provider="Microsoft", year="2026"),
+        Certification(name="Extract, Transform and Load Data in Power BI", provider="Microsoft", year="2026"),
+        Certification(name="Harnessing the Power of Data with Power BI", provider="Microsoft", year="2026"),
+        Certification(name="Preparing Data for Analysis with Microsoft Excel", provider="Microsoft", year="2026"),
+
+        # ---------------- Azure ----------------
+
+        Certification(name="Microsoft Azure Data Fundamentals (DP-900 Exam Prep)", provider="Microsoft", year="2026"),
+        Certification(name="Modern Data Warehouse Analytics in Microsoft Azure", provider="Microsoft", year="2026"),
+        Certification(name="Microsoft Azure Cosmos DB", provider="Microsoft", year="2026"),
+        Certification(name="Microsoft Azure SQL", provider="Microsoft", year="2026"),
+        Certification(name="Explore Core Data Concepts in Microsoft Azure", provider="Microsoft", year="2026"),
+
+        # ---------------- Google ----------------
+
+        Certification(name="Google Advanced Data Analytics", provider="Google", year="2026"),
+        Certification(name="Google Advanced Data Analytics Capstone", provider="Google", year="2026"),
+        Certification(name="The Nuts and Bolts of Machine Learning", provider="Google", year="2026"),
+        Certification(name="Regression Analysis: Simplify Complex Data Relationships", provider="Google", year="2026"),
+        Certification(name="The Power of Statistics", provider="Google", year="2026"),
+        Certification(name="Go Beyond the Numbers: Translate Data into Insights", provider="Google", year="2026"),
+        Certification(name="Get Started with Python", provider="Google", year="2026"),
+        Certification(name="Foundations of Data Science", provider="Google", year="2026"),
+        Certification(name="Ask Questions to Make Data-Driven Decisions", provider="Google", year="2026"),
+
+        # ---------------- IBM ----------------
+
+        Certification(name="Hands-on Introduction to Linux Commands and Shell Scripting", provider="IBM", year="2026"),
+        Certification(name="Introduction to Agile Development and Scrum", provider="IBM", year="2026"),
+        Certification(name="Python for Data Science, AI & Development", provider="IBM", year="2026"),
+        Certification(name="Developing Back-End Apps with Node.js and Express", provider="IBM", year="2026"),
+        Certification(name="Developing Front-End Apps with React", provider="IBM", year="2026"),
+        Certification(name="Getting Started with Git and GitHub", provider="IBM", year="2025"),
+        Certification(name="Introduction to HTML, CSS & JavaScript", provider="IBM", year="2025"),
+        Certification(name="Introduction to Cloud Computing", provider="IBM", year="2025"),
+
+        # ---------------- AWS ----------------
+
+        Certification(name="AWS Cloud Practitioner Essentials", provider="Amazon Web Services", year="2026"),
+
+        # ---------------- Forage ----------------
+
+        Certification(name="Citi – Technology Software Development Job Simulation", provider="Forage", year="2026"),
+    ]
+
+    db.add_all(certifications)
+    db.commit()
+
+    print(f"✓ {len(certifications)} Certifications Inserted")
+
 def seed_education(db: Session):
     """
     Insert all education records.
@@ -546,7 +623,7 @@ def main():
         seed_experiences(db)
         seed_projects(db)
         seed_education(db)
-        #seed_certifications(db)
+        seed_certifications(db)
 
         print("Seeder Connected Successfully!")
 
