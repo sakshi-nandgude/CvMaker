@@ -1,9 +1,12 @@
+import json
+
 from openai import OpenAI
 from sqlalchemy.orm import Session
 
 from app.config import OPENAI_API_KEY
 from app.ai.prompts import SYSTEM_PROMPT
 from app.ai.resume_builder import build_master_profile
+from app.ai.resume_assembler import assemble_resume
 
 from app.models.profile import PersonalProfile
 from app.models.experience import Experience
@@ -20,9 +23,12 @@ def generate_resume(
     job_description: str,
 ):
     """
-    Generate a tailored resume using the user's
-    stored master profile and a job description.
+    Generate a tailored resume from the user's master profile.
     """
+
+    # -----------------------------
+    # Load Master Profile
+    # -----------------------------
 
     profile = db.query(PersonalProfile).first()
 
@@ -56,6 +62,10 @@ def generate_resume(
         .all()
     )
 
+    # -----------------------------
+    # Build structured profile
+    # -----------------------------
+
     master_profile = build_master_profile(
         profile=profile,
         experiences=experiences,
@@ -64,6 +74,10 @@ def generate_resume(
         education=education,
         certifications=certifications,
     )
+
+    # -----------------------------
+    # Call OpenAI
+    # -----------------------------
 
     response = client.chat.completions.create(
         model="gpt-4.1",
@@ -75,17 +89,35 @@ def generate_resume(
             },
             {
                 "role": "user",
-                "content": f"""
-MASTER PROFILE
-
-{master_profile}
-
-JOB DESCRIPTION
-
-{job_description}
-""",
+                "content": json.dumps(
+                    {
+                        "master_profile": master_profile,
+                        "job_description": job_description,
+                    },
+                    indent=2,
+                ),
             },
         ],
+        response_format={
+            "type": "json_object"
+        },
     )
 
-    return response.choices[0].message.content
+    # -----------------------------
+    # Parse AI JSON
+    # -----------------------------
+
+    ai_response = json.loads(
+        response.choices[0].message.content
+    )
+
+    # -----------------------------
+    # Assemble final resume
+    # -----------------------------
+
+    final_resume = assemble_resume(
+        master_profile=master_profile,
+        ai_response=ai_response,
+    )
+
+    return final_resume

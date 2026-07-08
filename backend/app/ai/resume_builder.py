@@ -1,80 +1,134 @@
+from sqlalchemy.orm import Session
+
 from app.models.profile import PersonalProfile
 from app.models.experience import Experience
 from app.models.project import Project
 from app.models.skill import Skill
 from app.models.education import Education
 from app.models.certification import Certification
+from app.models.experience_bullet import ExperienceBullet
 
 
-def build_master_profile(
-    profile: PersonalProfile,
-    experiences: list[Experience],
-    projects: list[Project],
-    skills: list[Skill],
-    education: list[Education],
-    certifications: list[Certification],
-):
+def build_master_profile(db: Session) -> dict:
+    """
+    Build one structured master profile that becomes
+    the single source of truth for AI.
+    """
+
+    profile = db.query(PersonalProfile).first()
+
+    experiences = (
+        db.query(Experience)
+        .order_by(Experience.id.desc())
+        .all()
+    )
+
+    projects = (
+        db.query(Project)
+        .order_by(Project.id.desc())
+        .all()
+    )
+
+    skills = (
+        db.query(Skill)
+        .order_by(Skill.category, Skill.name)
+        .all()
+    )
+
+    education = (
+        db.query(Education)
+        .order_by(Education.end_year.desc())
+        .all()
+    )
+
+    certifications = (
+        db.query(Certification)
+        .order_by(Certification.year.desc())
+        .all()
+    )
+
+    experience_data = []
+
+    for experience in experiences:
+
+        bullets = (
+            db.query(ExperienceBullet)
+            .filter(
+                ExperienceBullet.experience_id
+                == experience.id
+            )
+            .order_by(
+                ExperienceBullet.display_order
+            )
+            .all()
+        )
+
+        experience_data.append(
+            {
+                "id": experience.id,
+                "company": experience.company,
+                "role": experience.role,
+                "location": experience.location,
+                "start_date": experience.start_date,
+                "end_date": experience.end_date,
+                "bullets": [
+                    bullet.bullet
+                    for bullet in bullets
+                ],
+            }
+        )
+
     return {
-        "candidate": {
-            "profile": {
-                "name": profile.full_name if profile else "",
-                "title": profile.title if profile else "",
-                "summary": profile.summary if profile else "",
-                "email": profile.email if profile else "",
-                "phone": profile.phone if profile else "",
-                "location": profile.location if profile else "",
-                "linkedin": profile.linkedin if profile else "",
-                "portfolio": profile.portfolio if profile else "",
-            },
-            "experience": [
-                {
-                    "id": e.id,
-                    "company": e.company,
-                    "role": e.role,
-                    "location": e.location,
-                    "start_date": e.start_date,
-                    "end_date": e.end_date,
-                }
-                for e in experiences
-            ],
-            "projects": [
-                {
-                    "id": p.id,
-                    "name": p.name,
-                    "technologies": p.technologies,
-                    "github_url": p.github_url,
-                    "live_url": p.live_url,
-                }
-                for p in projects
-            ],
-            "skills": [
-                {
-                    "id": s.id,
-                    "category": s.category,
-                    "name": s.name,
-                }
-                for s in skills
-            ],
-            "education": [
-                {
-                    "id": e.id,
-                    "degree": e.degree,
-                    "university": e.university,
-                    "location": e.location,
-                    "start_year": e.start_year,
-                    "end_year": e.end_year,
-                    "grade": e.grade,
-                }
-                for e in education
-            ],
-            "certifications": [
-                {
-                    "id": c.id,
-                    "name": c.name,
-                    "provider": c.provider,
-                    "year": c.year,
-                }
-                for c in certifications
-            ],
+        "profile": {
+            "full_name": profile.full_name,
+            "title": profile.title,
+            "email": profile.email,
+            "phone": profile.phone,
+            "location": profile.location,
+            "linkedin": profile.linkedin,
+            "portfolio": profile.portfolio,
+            "summary": profile.summary,
         }
+        if profile
+        else {},
+        "experience": experience_data,
+        "projects": [
+            {
+                "id": project.id,
+                "name": project.name,
+                "technologies": project.technologies,
+                "github_url": project.github_url,
+                "live_url": project.live_url,
+            }
+            for project in projects
+        ],
+        "skills": [
+            {
+                "id": skill.id,
+                "category": skill.category,
+                "name": skill.name,
+            }
+            for skill in skills
+        ],
+        "education": [
+            {
+                "id": item.id,
+                "degree": item.degree,
+                "university": item.university,
+                "location": item.location,
+                "start_year": item.start_year,
+                "end_year": item.end_year,
+                "grade": item.grade,
+            }
+            for item in education
+        ],
+        "certifications": [
+            {
+                "id": item.id,
+                "name": item.name,
+                "provider": item.provider,
+                "year": item.year,
+            }
+            for item in certifications
+        ],
     }
