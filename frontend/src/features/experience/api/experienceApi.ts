@@ -12,7 +12,7 @@ export interface ExperienceRequest {
 export const experienceApi = {
   getExperiences: async (): Promise<Experience[]> => {
     const response = await api.get<Experience[]>(
-      "/experience/"
+      "/experiences/"
     );
 
     return response.data;
@@ -22,7 +22,7 @@ export const experienceApi = {
     experience: ExperienceRequest
   ): Promise<Experience> => {
     const response = await api.post<Experience>(
-      "/experience/",
+      "/experiences/",
       experience
     );
 

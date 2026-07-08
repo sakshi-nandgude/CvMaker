@@ -37,6 +37,9 @@ function ExperienceForm() {
     return <p>Loading experiences...</p>;
   }
 
+  console.log("Experience data:", data);
+  console.log("Loading:", isLoading);
+
   return (
     <SectionCard
       title="Experience"
