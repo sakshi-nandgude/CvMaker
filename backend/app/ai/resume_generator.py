@@ -86,11 +86,82 @@ def generate_resume(
 
     resume_style = load_resume_style()
 
-    prompt = build_user_prompt(
-        master_profile,
-        job_description,
-        resume_style,
-    )
+    def build_user_prompt(
+    master_profile: dict,
+    job_description: str,
+    resume_style: str,
+) -> str:
+        """
+        Build the prompt sent to GPT.
+        """
+
+        return f"""
+=========================================================
+MASTER PROFILE
+=========================================================
+
+{json.dumps(master_profile, indent=2)}
+
+=========================================================
+TARGET JOB DESCRIPTION
+=========================================================
+
+{job_description}
+
+=========================================================
+REFERENCE WRITING GUIDELINES
+=========================================================
+
+{resume_style}
+
+=========================================================
+INSTRUCTIONS
+=========================================================
+
+The Master Profile contains every fact about the candidate.
+
+Your task is to build the strongest possible ATS resume for the supplied job description.
+
+The goal is NOT to include everything.
+
+Instead create a concise, highly relevant resume.
+
+Requirements
+
+• Select only the experiences that directly strengthen the application.
+
+• Select only the projects that best demonstrate the required technical skills.
+
+• Select only the certifications that add value.
+
+• Keep only the most relevant technical skills.
+
+• Rewrite the professional summary specifically for this job.
+
+• Rewrite only the selected experience bullets.
+
+• Rewrite only the selected project bullets.
+
+• Remove unrelated or repetitive information.
+
+• The finished resume should read naturally and professionally.
+
+• The finished resume should normally fit on ONE page.
+
+• Use only information contained in the Master Profile.
+
+• Never invent technologies.
+
+• Never invent achievements.
+
+• Never invent metrics.
+
+• Never invent employers.
+
+• Never invent projects.
+
+Return ONLY valid JSON.
+"""
 
     response = client.chat.completions.create(
         model="gpt-4.1",

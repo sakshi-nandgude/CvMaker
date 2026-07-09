@@ -12,22 +12,74 @@ def assemble_resume(
 
     resume = deepcopy(master_profile)
 
-    # ---------------------------------
+    # -------------------------------------------------
     # Summary
-    # ---------------------------------
+    # -------------------------------------------------
 
     if ai_response.get("summary"):
         resume["profile"]["summary"] = ai_response["summary"]
 
-    # ---------------------------------
-    # Skill Order
-    # ---------------------------------
+    # -------------------------------------------------
+    # Filter Experience
+    # -------------------------------------------------
 
-    if ai_response.get("skill_order"):
+    selected_experience = ai_response.get(
+        "selected_experience"
+    )
 
-        ordered = []
+    if selected_experience:
 
-        for name in ai_response["skill_order"]:
+        resume["experience"] = [
+            item
+            for item in resume["experience"]
+            if item["id"] in selected_experience
+        ]
+
+    # -------------------------------------------------
+    # Filter Projects
+    # -------------------------------------------------
+
+    selected_projects = ai_response.get(
+        "selected_projects"
+    )
+
+    if selected_projects:
+
+        resume["projects"] = [
+            item
+            for item in resume["projects"]
+            if item["id"] in selected_projects
+        ]
+
+    # -------------------------------------------------
+    # Filter Certifications
+    # -------------------------------------------------
+
+    selected_certifications = ai_response.get(
+        "selected_certifications"
+    )
+
+    if selected_certifications:
+
+        resume["certifications"] = [
+            item
+            for item in resume["certifications"]
+            if item["id"] in selected_certifications
+        ]
+
+    # -------------------------------------------------
+    # Filter + Order Skills
+    # -------------------------------------------------
+
+    selected_skills = ai_response.get(
+        "selected_skills"
+    )
+
+    if selected_skills:
+
+        ordered_skills = []
+
+        for name in selected_skills:
 
             for skill in resume["skills"]:
 
@@ -35,18 +87,13 @@ def assemble_resume(
                     skill["name"].lower()
                     == name.lower()
                 ):
-                    ordered.append(skill)
+                    ordered_skills.append(skill)
 
-        for skill in resume["skills"]:
+        resume["skills"] = ordered_skills
 
-            if skill not in ordered:
-                ordered.append(skill)
-
-        resume["skills"] = ordered
-
-    # ---------------------------------
-    # Experience Rewrite
-    # ---------------------------------
+    # -------------------------------------------------
+    # Rewrite Experience Bullets
+    # -------------------------------------------------
 
     rewritten_experience = {
         item["id"]: item["bullets"]
@@ -64,9 +111,9 @@ def assemble_resume(
                 experience["id"]
             ]
 
-    # ---------------------------------
-    # Project Rewrite
-    # ---------------------------------
+    # -------------------------------------------------
+    # Rewrite Project Bullets
+    # -------------------------------------------------
 
     rewritten_projects = {
         item["id"]: item["bullets"]
