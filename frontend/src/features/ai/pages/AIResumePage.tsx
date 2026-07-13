@@ -6,6 +6,8 @@ import { useGenerateResume } from "../hooks/useGenerateResume";
 
 import { useResumeContext } from "../../resume/context/ResumeContext";
 
+import DownloadResumeButton from "../../export/components/DownloadResumeButton";
+
 function AIResumePage() {
   const generateResume = useGenerateResume();
 
@@ -51,7 +53,12 @@ function AIResumePage() {
       />
 
       <ResumePreview />
+      <div className="flex justify-end">
+    <DownloadResumeButton />
+</div>
     </div>
+
+    
   );
 }
 
