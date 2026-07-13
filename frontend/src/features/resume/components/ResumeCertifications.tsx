@@ -9,26 +9,32 @@ function ResumeCertifications({
 }: Props) {
   return (
     <section className="mt-8">
-      <h2 className="mb-3 border-b pb-1 text-xl font-bold uppercase">
+      <h2 className="mb-4 border-b pb-1 text-xl font-bold uppercase tracking-wide">
         Certifications
       </h2>
 
-      {certifications.map((certification) => (
-        <div
-          key={certification.id}
-          className="mb-3"
-        >
-          <strong>{certification.name}</strong>
+      <div className="space-y-3">
+        {certifications.map((certification) => (
+          <div
+            key={certification.id}
+            className="flex items-start justify-between"
+          >
+            <div>
+              <h3 className="text-sm font-semibold">
+                {certification.name}
+              </h3>
 
-          <div>
-            {certification.provider}
-          </div>
+              <p className="text-sm text-gray-600">
+                {certification.provider}
+              </p>
+            </div>
 
-          <div>
-            {certification.year}
+            <span className="text-sm whitespace-nowrap text-gray-600">
+              {certification.year}
+            </span>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </section>
   );
 }
