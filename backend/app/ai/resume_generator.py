@@ -36,66 +36,10 @@ def build_user_prompt(
     resume_style: str,
 ) -> str:
     """
-    Build a structured prompt for GPT.
+    Build the prompt sent to GPT.
     """
 
     return f"""
-==============================
-CANDIDATE MASTER PROFILE
-==============================
-
-{json.dumps(master_profile, indent=2)}
-
-==============================
-TARGET JOB DESCRIPTION
-==============================
-
-{job_description}
-
-==============================
-PROFESSIONAL WRITING STYLE
-==============================
-
-{resume_style}
-
-==============================
-YOUR TASK
-==============================
-
-Use ONLY the supplied Master Profile.
-
-Never invent facts.
-
-Never invent metrics.
-
-Never invent employers.
-
-Never invent achievements.
-
-Rewrite existing information only.
-
-Return ONLY valid JSON.
-"""
-
-
-def generate_resume(
-    db: Session,
-    job_description: str,
-):
-    master_profile = build_master_profile(db)
-
-    resume_style = load_resume_style()
-
-    def build_user_prompt(
-    master_profile: dict,
-    job_description: str,
-    resume_style: str,
-) -> str:
-        """
-        Build the prompt sent to GPT.
-        """
-
-        return f"""
 =========================================================
 MASTER PROFILE
 =========================================================
@@ -162,6 +106,25 @@ Requirements
 
 Return ONLY valid JSON.
 """
+
+
+def generate_resume(
+    db: Session,
+    job_description: str,
+):
+    """
+    Generate an AI-tailored resume.
+    """
+
+    master_profile = build_master_profile(db)
+
+    resume_style = load_resume_style()
+
+    prompt = build_user_prompt(
+        master_profile=master_profile,
+        job_description=job_description,
+        resume_style=resume_style,
+    )
 
     response = client.chat.completions.create(
         model="gpt-4.1",
