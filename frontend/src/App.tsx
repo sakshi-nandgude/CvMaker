@@ -18,31 +18,33 @@ import NotFoundPage from "./pages/NotFound/NotFoundPage";
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
+  <Routes>
+    <Route path="/" element={<HomePage />} />
 
-        <Route path="/dashboard" element={<DashboardPage />}>
-  <Route index element={<ProfileSection />} />
+    <Route
+      path="/ai"
+      element={<AIResumePage />}
+    />
 
-  <Route path="profile" element={<ProfileSection />} />
-  <Route path="experience" element={<ExperienceSection />} />
-  <Route path="projects" element={<ProjectSection />} />
-  <Route path="skills" element={<SkillSection />} />
-  <Route path="education" element={<EducationSection />} />
-  <Route path="certifications" element={<CertificationSection />} />
-  <Route path="resume" element={<ResumeSection />} />
-  <Route path="settings" element={<SettingsSection />} />
+    <Route
+      path="/dashboard"
+      element={<DashboardPage />}
+    >
+      <Route index element={<ProfileSection />} />
 
-  <Route
-    path="ai-resume"
-    element={<AIResumePage />}
-  />
-</Route>
+      <Route path="profile" element={<ProfileSection />} />
+      <Route path="experience" element={<ExperienceSection />} />
+      <Route path="projects" element={<ProjectSection />} />
+      <Route path="skills" element={<SkillSection />} />
+      <Route path="education" element={<EducationSection />} />
+      <Route path="certifications" element={<CertificationSection />} />
+      <Route path="resume" element={<ResumeSection />} />
+      <Route path="settings" element={<SettingsSection />} />
+    </Route>
 
-
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
+    <Route path="*" element={<NotFoundPage />} />
+  </Routes>
+</BrowserRouter>
   );
 }
 
