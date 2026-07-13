@@ -1,5 +1,6 @@
-import DashboardLayout from "../../components/layout/MainLayout";
 import { Outlet } from "react-router-dom";
+
+import DashboardLayout from "../../components/layout/DashboardLayout";
 
 function DashboardPage() {
   return (

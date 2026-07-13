@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import Sidebar from "./Sidebar";
 
 type Props = {
   children: ReactNode;
@@ -7,13 +6,9 @@ type Props = {
 
 function MainLayout({ children }: Props) {
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      <Sidebar />
-
-      <main className="flex-1 p-8">
-        {children}
-      </main>
-    </div>
+    <main className="min-h-screen bg-gray-100">
+      {children}
+    </main>
   );
 }
 

@@ -22,5 +22,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/api/api.ts", "src/components/common", "src/components/layout/Sidebar.tsx", "src/components/layout/SidebarItem.tsx", "src/components/layout/MainLayout.tsx"]
+  "include": ["src"]
 }
