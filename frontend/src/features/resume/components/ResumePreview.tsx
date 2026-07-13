@@ -29,11 +29,23 @@ function ResumePreview() {
     education.isLoading ||
     certifications.isLoading
   ) {
-    return <p>Loading Resume...</p>;
+    return (
+      <div className="flex h-96 items-center justify-center">
+        <p className="text-lg font-medium text-gray-500">
+          Loading Resume...
+        </p>
+      </div>
+    );
   }
 
   if (!profile.data) {
-    return <p>No profile found.</p>;
+    return (
+      <div className="flex h-96 items-center justify-center">
+        <p className="text-lg font-medium text-gray-500">
+          No profile found.
+        </p>
+      </div>
+    );
   }
 
   const resume = generatedResume
@@ -66,43 +78,54 @@ function ResumePreview() {
       };
 
   return (
-    <div className="mx-auto max-w-4xl rounded-lg bg-white p-10 shadow-lg">
-      <ResumeHeader
-        profile={{
-          fullName: resume.profile.full_name,
-          title: resume.profile.title,
-          email: resume.profile.email,
-          phone: resume.profile.phone,
-          location: resume.profile.location,
-          linkedin: resume.profile.linkedin,
-          portfolio: resume.profile.portfolio,
-          summary: resume.profile.summary,
-        }}
-      />
-
-      <ResumeSummary
-        summary={resume.summary}
-      />
-
-      <ResumeExperience
-        experiences={resume.experience}
-      />
-
-      <ResumeProjects
-        projects={resume.projects}
+    <div className="flex justify-center bg-gray-100 py-10">
+      <div
+        className="
+          w-full
+          max-w-[210mm]
+          min-h-[297mm]
+          bg-white
+          px-10
+          py-10
+          shadow-2xl
+          print:shadow-none
+          print:max-w-none
+          print:min-h-0
+        "
+      >
+        <ResumeHeader
+          profile={{
+            fullName: resume.profile.full_name,
+            title: resume.profile.title,
+            email: resume.profile.email,
+            phone: resume.profile.phone,
+            location: resume.profile.location,
+            linkedin: resume.profile.linkedin,
+            portfolio: resume.profile.portfolio,
+            summary: resume.profile.summary,
+          }}
         />
 
-      <ResumeSkills
-        skills={resume.skills}
-      />
+        <ResumeSummary summary={resume.summary} />
 
-      <ResumeEducation
-        education={resume.education}
-      />
+        <ResumeSkills skills={resume.skills} />
 
-      <ResumeCertifications
-        certifications={resume.certifications}
-      />
+        <ResumeExperience
+          experiences={resume.experience}
+        />
+
+        <ResumeProjects
+          projects={resume.projects}
+        />
+
+        <ResumeEducation
+          education={resume.education}
+        />
+
+        <ResumeCertifications
+          certifications={resume.certifications}
+        />
+      </div>
     </div>
   );
 }
