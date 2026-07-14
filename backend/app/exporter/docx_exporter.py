@@ -149,6 +149,14 @@ def write_summary(
         summary,
     )
 
+replace_placeholder(
+    document,
+    "{{SKILLS}}",
+    build_skills(
+        resume.get("skills", [])
+    ),
+)
+
 
 # =========================================================
 # EXPORT RESUME
@@ -182,3 +190,12 @@ def export_resume(
 # =========================================================
 # Continue in Step 2
 # =========================================================
+
+def build_skills(skills: list) -> str:
+    if not skills:
+        return ""
+
+    return " • ".join(
+        skill["name"]
+        for skill in skills
+    )
