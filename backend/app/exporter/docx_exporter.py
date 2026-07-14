@@ -157,6 +157,14 @@ replace_placeholder(
     ),
 )
 
+replace_placeholder(
+    document,
+    "{{EXPERIENCE}}",
+    build_experience(
+        resume.get("experience", [])
+    ),
+)
+
 
 # =========================================================
 # EXPORT RESUME
@@ -199,3 +207,39 @@ def build_skills(skills: list) -> str:
         skill["name"]
         for skill in skills
     )
+
+def build_experience(experiences: list) -> str:
+    if not experiences:
+        return ""
+
+    sections = []
+
+    for experience in experiences:
+        block = []
+
+        role = experience.get("role", "")
+        company = experience.get("company", "")
+        location = experience.get("location", "")
+        start = experience.get("start_date", "")
+        end = experience.get("end_date", "")
+
+        block.append(f"{role}")
+
+        company_line = company
+
+        if location:
+            company_line += f" | {location}"
+
+        if start or end:
+            company_line += f" | {start} - {end}"
+
+        block.append(company_line)
+
+        bullets = experience.get("bullets", [])
+
+        for bullet in bullets:
+            block.append(f"• {bullet}")
+
+        sections.append("\n".join(block))
+
+    return "\n\n".join(sections)
