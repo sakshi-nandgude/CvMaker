@@ -1,173 +1,184 @@
 from io import BytesIO
+from pathlib import Path
 
 from docx import Document
+from docx.text.paragraph import Paragraph
 
-TEMPLATE_PATH = "templates/resume_template.docx"
 
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-def replace_placeholder(document: Document, placeholder: str, value: str):
+TEMPLATE_PATH = (
+    BASE_DIR
+    / "templates"
+    / "resume_template.docx"
+)
+
+# ---------------------------------------------------------
+# Load Template
+# ---------------------------------------------------------
+
+def load_template() -> Document:
     """
-    Replace a placeholder in all paragraphs.
+    Load the resume template.
+    """
+
+    return Document(TEMPLATE_PATH)
+
+
+# ---------------------------------------------------------
+# Find Placeholder
+# ---------------------------------------------------------
+
+def find_placeholder(
+    document: Document,
+    placeholder: str,
+) -> Paragraph | None:
+    """
+    Find the paragraph containing a placeholder.
     """
 
     for paragraph in document.paragraphs:
+
         if placeholder in paragraph.text:
-            paragraph.text = paragraph.text.replace(
-                placeholder,
-                value,
-            )
+
+            return paragraph
+
+    return None
 
 
-def build_contact(profile: dict) -> str:
-    parts = [
-        profile.get("email", ""),
-        profile.get("phone", ""),
-        profile.get("location", ""),
-        profile.get("linkedin", ""),
+# ---------------------------------------------------------
+# Replace Placeholder
+# ---------------------------------------------------------
+
+def replace_placeholder(
+    document: Document,
+    placeholder: str,
+    value: str,
+):
+    """
+    Replace a simple placeholder.
+
+    Used for:
+
+    FULL_NAME
+
+    TITLE
+
+    CONTACT
+
+    SUMMARY
+    """
+
+    paragraph = find_placeholder(
+        document,
+        placeholder,
+    )
+
+    if paragraph is None:
+        return
+
+    paragraph.text = value
+
+
+# ---------------------------------------------------------
+# Contact Builder
+# ---------------------------------------------------------
+
+def build_contact(
+    profile: dict,
+) -> str:
+
+    values = [
+
+        profile.get("location"),
+
+        profile.get("email"),
+
+        profile.get("phone"),
+
+        profile.get("linkedin"),
     ]
 
-    return " | ".join(
-        item for item in parts if item
+    return " · ".join(
+        value
+        for value in values
+        if value
     )
 
 
-def build_skills(skills: list) -> str:
-    return " • ".join(
-        skill["name"]
-        for skill in skills
-    )
+# ---------------------------------------------------------
+# Header
+# ---------------------------------------------------------
 
-
-def build_experience(experience: list) -> str:
-    blocks = []
-
-    for job in experience:
-        text = (
-            f"{job['role']}\n"
-            f"{job['company']} | {job['start_date']} - {job['end_date']}\n"
-        )
-
-        for bullet in job.get("bullets", []):
-            text += f"• {bullet}\n"
-
-        blocks.append(text)
-
-    return "\n".join(blocks)
-
-
-def build_projects(projects: list) -> str:
-    blocks = []
-
-    for project in projects:
-        text = (
-            f"{project['name']}\n"
-            f"{project['technologies']}\n"
-        )
-
-        for bullet in project.get("bullets", []):
-            text += f"• {bullet}\n"
-
-        blocks.append(text)
-
-    return "\n".join(blocks)
-
-
-def build_education(education: list) -> str:
-    blocks = []
-
-    for item in education:
-        blocks.append(
-            (
-                f"{item['degree']}\n"
-                f"{item['university']} | "
-                f"{item['start_year']} - {item['end_year']}\n"
-                f"{item['grade']}"
-            )
-        )
-
-    return "\n\n".join(blocks)
-
-
-def build_certifications(certifications: list) -> str:
-    return "\n".join(
-        f"{c['name']} - {c['provider']} ({c['year']})"
-        for c in certifications
-    )
-
-
-def export_resume(resume: dict):
-    document = Document(TEMPLATE_PATH)
+def write_header(
+    document: Document,
+    profile: dict,
+):
 
     replace_placeholder(
         document,
         "{{FULL_NAME}}",
-        resume["profile"]["full_name"],
+        profile["full_name"],
     )
 
     replace_placeholder(
         document,
         "{{TITLE}}",
-        resume["profile"]["title"],
+        profile["title"],
     )
 
     replace_placeholder(
         document,
         "{{CONTACT}}",
-        build_contact(
-            resume["profile"]
-        ),
+        build_contact(profile),
     )
+
+
+# ---------------------------------------------------------
+# Summary
+# ---------------------------------------------------------
+
+def write_summary(
+    document: Document,
+    summary: str,
+):
 
     replace_placeholder(
         document,
         "{{SUMMARY}}",
+        summary,
+    )
+
+
+# =========================================================
+# EXPORT RESUME
+# =========================================================
+
+def export_resume(
+    resume: dict,
+):
+
+    document = load_template()
+
+    write_header(
+        document,
+        resume["profile"],
+    )
+
+    write_summary(
+        document,
         resume["profile"]["summary"],
     )
 
-    replace_placeholder(
-        document,
-        "{{SKILLS}}",
-        build_skills(
-            resume["skills"]
-        ),
-    )
+    output = BytesIO()
 
-    replace_placeholder(
-        document,
-        "{{EXPERIENCE}}",
-        build_experience(
-            resume["experience"]
-        ),
-    )
+    document.save(output)
 
-    replace_placeholder(
-        document,
-        "{{PROJECTS}}",
-        build_projects(
-            resume["projects"]
-        ),
-    )
+    output.seek(0)
 
-    replace_placeholder(
-        document,
-        "{{EDUCATION}}",
-        build_education(
-            resume["education"]
-        ),
-    )
+    return output
 
-    replace_placeholder(
-        document,
-        "{{CERTIFICATIONS}}",
-        build_certifications(
-            resume["certifications"]
-        ),
-    )
 
-    file = BytesIO()
-
-    document.save(file)
-
-    file.seek(0)
-
-    return file
+# =========================================================
+# Continue in Step 2
+# =========================================================
