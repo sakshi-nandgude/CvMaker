@@ -173,6 +173,22 @@ replace_placeholder(
     ),
 )
 
+replace_placeholder(
+    document,
+    "{{EDUCATION}}",
+    build_education(
+        resume.get("education", [])
+    ),
+)
+
+replace_placeholder(
+    document,
+    "{{CERTIFICATIONS}}",
+    build_certifications(
+        resume.get("certifications", [])
+    ),
+)
+
 # =========================================================
 # EXPORT RESUME
 # =========================================================
@@ -278,6 +294,68 @@ def build_projects(projects: list) -> str:
 
         if github:
             block.append(f"GitHub: {github}")
+
+        sections.append("\n".join(block))
+
+    return "\n\n".join(sections)
+
+
+def build_education(education: list) -> str:
+    if not education:
+        return ""
+
+    sections = []
+
+    for item in education:
+        block = []
+
+        degree = item.get("degree", "")
+        university = item.get("university", "")
+        location = item.get("location", "")
+        start = item.get("start_year", "")
+        end = item.get("end_year", "")
+        grade = item.get("grade", "")
+
+        block.append(degree)
+
+        university_line = university
+
+        if location:
+            university_line += f" | {location}"
+
+        if start or end:
+            university_line += f" | {start} - {end}"
+
+        block.append(university_line)
+
+        if grade:
+            block.append(f"Grade: {grade}")
+
+        sections.append("\n".join(block))
+
+    return "\n\n".join(sections)
+
+
+def build_certifications(certifications: list) -> str:
+    if not certifications:
+        return ""
+
+    sections = []
+
+    for cert in certifications:
+        block = []
+
+        name = cert.get("name", "")
+        provider = cert.get("provider", "")
+        year = cert.get("year", "")
+
+        block.append(name)
+
+        if provider:
+            block.append(provider)
+
+        if year:
+            block.append(str(year))
 
         sections.append("\n".join(block))
 
