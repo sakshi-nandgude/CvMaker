@@ -165,6 +165,13 @@ replace_placeholder(
     ),
 )
 
+replace_placeholder(
+    document,
+    "{{PROJECTS}}",
+    build_projects(
+        resume.get("projects", [])
+    ),
+)
 
 # =========================================================
 # EXPORT RESUME
@@ -239,6 +246,38 @@ def build_experience(experiences: list) -> str:
 
         for bullet in bullets:
             block.append(f"• {bullet}")
+
+        sections.append("\n".join(block))
+
+    return "\n\n".join(sections)
+
+
+def build_projects(projects: list) -> str:
+    if not projects:
+        return ""
+
+    sections = []
+
+    for project in projects:
+        block = []
+
+        name = project.get("name", "")
+        technologies = project.get("technologies", "")
+
+        block.append(name)
+
+        if technologies:
+            block.append(technologies)
+
+        bullets = project.get("bullets", [])
+
+        for bullet in bullets:
+            block.append(f"• {bullet}")
+
+        github = project.get("github_url", "")
+
+        if github:
+            block.append(f"GitHub: {github}")
 
         sections.append("\n".join(block))
 
